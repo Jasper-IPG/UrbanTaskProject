@@ -13,15 +13,18 @@ n = int(input('Введите число от 3 до 20: '))
 
 
 def game_of_life():
-    num1 = n
     list_1 = []
-    for i in range(1, n):
-        for j in range(i, n):
-            if num1 % (i + j) == 0 and i != j:
-                list_2 = [i, j]
-                list_1.append(list_2)
+    if n < 3 or n > 20:
+        print('Введённое число вне диапазона.')
+        return
+    else:
+        for i in range(1, n):
+            for j in range(i, n):
+                if n % (i + j) == 0 and i != j:
+                    list_2 = [i, j]
+                    list_1.append(list_2)
 
-    return list_1
+        return list_1
 
 
 result = game_of_life()
