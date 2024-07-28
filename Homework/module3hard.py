@@ -8,28 +8,20 @@ data_structure = [
 ]
 
 
-def calculate_structure_sum():
+def calculate_structure_sum(data):
     sum_ = 0
-    for i in data_structure:
-        if isinstance(i, (list, int, float)):
-            sum_ = sum_ + sum(i)
-        elif isinstance(i, str):
+    for i in data:
+        if isinstance(i, str):
             sum_ = sum_ + len(i)
+        elif isinstance(i, int):
+            sum_ = sum_ + i
         elif isinstance(i, dict):
-            sum_ = (sum_ + sum(value for value in i.values() if isinstance(value, (int, float))) +
+            sum_ = (sum_ + sum(value for value in i.values() if isinstance(value, int)) +
                     sum(len(keys) for keys in i.keys() if isinstance(keys, str)))
-        elif isinstance(i, tuple):
-            for j in i:
-                if isinstance(j, int):
-                    sum_ = sum_ + j
-                elif isinstance(j, dict):
-                    sum_ = (sum_ + sum(value for value in j.values() if isinstance(value, (int, float))) +
-                            sum(len(key) for key in j.keys() if isinstance(key, str)))
-
+        elif isinstance(i, (list, tuple, set)):
+            sum_ = sum_ + calculate_structure_sum(i)
     return sum_
 
 
-result = calculate_structure_sum()
+result = calculate_structure_sum(data_structure)
 print(result)
-
-
