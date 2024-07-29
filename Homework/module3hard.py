@@ -22,6 +22,7 @@ def calculate_structure_sum(data):
             sum_ = sum_ + calculate_structure_sum(i)
     return sum_
 
+# Версия для *args
 # def calculate_structure_sum(*args):
 #     sum_ = 0
 #     for i in args:
@@ -36,6 +37,7 @@ def calculate_structure_sum(data):
 #             for j in i:
 #                 sum_ = sum_ + calculate_structure_sum(j)
 #     return sum_
+
 
 result = calculate_structure_sum(data_structure)
 print(result)
