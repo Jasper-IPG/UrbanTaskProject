@@ -22,6 +22,20 @@ def calculate_structure_sum(data):
             sum_ = sum_ + calculate_structure_sum(i)
     return sum_
 
+# def calculate_structure_sum(*args):
+#     sum_ = 0
+#     for i in args:
+#         if isinstance(i, str):
+#             sum_ = sum_ + len(i)
+#         elif isinstance(i, int):
+#             sum_ = sum_ + i
+#         elif isinstance(i, dict):
+#             sum_ = (sum_ + sum(value for value in i.values() if isinstance(value, (int, float))) +
+#                     sum(len(keys) for keys in i.keys() if isinstance(keys, str)))
+#         elif isinstance(i, (list, tuple, set)):
+#             for j in i:
+#                 sum_ = sum_ + calculate_structure_sum(j)
+#     return sum_
 
 result = calculate_structure_sum(data_structure)
 print(result)
