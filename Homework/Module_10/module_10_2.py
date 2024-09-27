@@ -23,8 +23,11 @@ class Knight(Thread):
             day_of_battle += 1
             num_of_enemies = num_of_enemies - self.power
             with lock:
-                print(f'{self.name}, сражается {day_of_battle} день(дня)..., осталось {num_of_enemies} воинов.')
-                if num_of_enemies == 0:
+                if num_of_enemies > 0:
+                    print(f'{self.name}, сражается {day_of_battle} день(дня)..., осталось {num_of_enemies} воинов.')
+                elif num_of_enemies <= 0:
+                    num_of_enemies = 0
+                    print(f'{self.name}, сражается {day_of_battle} день(дня)..., осталось {num_of_enemies} воинов.')
                     print(f'{self.name} одержал победу спустя {day_of_battle} дней(дня)!')
                     break
 
