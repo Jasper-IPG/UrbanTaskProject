@@ -19,7 +19,6 @@ class Guest(Thread):
 
     def __init__(self, name):
         self.name = name
-        name=None
         super().__init__(name)
 
     def run(self):
