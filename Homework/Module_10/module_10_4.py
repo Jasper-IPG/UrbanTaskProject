@@ -24,25 +24,32 @@ class Cafe:
     def __init__(self, *tables):
         self.tables = tables
         self.queue = Queue()
+        self.free_table = []
+        self.guests_threads = []
 
     def guest_arrival(self, *guests):
         for guest in guests:
             free_table_ = True
             for table in self.tables:
                 if table.guest is None:
-                    free_table = table
                     table.guest = guest.name
+                    self.free_table = table
                     guest_thr = Guest(guest)
                     guest_thr.start()
                     print(f'{guest.name} сел(-а) за стол номер {table.number}')
                     free_table_ = False
-                    print(guest_thr)
+                    self.guests_threads.append(guest_thr)
                     break
             if free_table_:
                 self.queue.put(guest)
                 print(f'{guest.name} в очереди.')
 
     def discuss_guests(self):
+        for i in cafe.guests_threads:
+            i.join()
+            print(f'{self.free_table.guest} покушал(-а) и ушёл(ушла)')
+            print(f'Стол номер {self.free_table} свободен')
+            self.free_table.guest = None
         if not self.queue.empty():
             next_guest = self.queue.get()
             self.guest_arrival(next_guest)
@@ -66,3 +73,6 @@ cafe.guest_arrival(*guests)
 
 # Обслуживание гостей
 cafe.discuss_guests()
+
+
+
