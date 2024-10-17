@@ -33,7 +33,7 @@ class Cafe:
             for table in self.tables:
                 if table.guest is None:
                     table.guest = guest.name
-                    self.free_table = table
+                    self.free_table.append(table)
                     guest_thr = Guest(guest)
                     guest_thr.start()
                     print(f'{guest.name} сел(-а) за стол номер {table.number}')
@@ -45,14 +45,14 @@ class Cafe:
                 print(f'{guest.name} в очереди.')
 
     def discuss_guests(self):
-        for i in cafe.guests_threads:
+        for i in self.guests_threads:
             i.join()
-            print(f'{self.free_table.guest} покушал(-а) и ушёл(ушла)')
-            print(f'Стол номер {self.free_table} свободен')
-            self.free_table.guest = None
-        if not self.queue.empty():
-            next_guest = self.queue.get()
-            self.guest_arrival(next_guest)
+            print(f'{self.free_table[i].guest} покушал(-а) и ушёл(ушла)')
+            print(f'Стол номер {self.free_table[i].number} свободен')
+            self.free_table[i].guest = None
+            if not self.queue.empty() and not i.is_alive():
+                next_guest = self.queue.get()
+                self.guest_arrival(next_guest)
 
 
 # Создание столов
