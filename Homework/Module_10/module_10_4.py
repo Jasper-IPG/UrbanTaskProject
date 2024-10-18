@@ -17,7 +17,8 @@ class Guest(Thread):
         self.name = name
 
     def run(self):
-        sleep(randint(3, 10))
+        service_time = randint(3, 10)
+        sleep(service_time)
 
 
 class Cafe:
@@ -29,30 +30,33 @@ class Cafe:
 
     def guest_arrival(self, *guests):
         for guest in guests:
-            free_table_ = True
+            unfree_table = True
             for table in self.tables:
                 if table.guest is None:
                     table.guest = guest.name
-                    self.free_table.append(table)
-                    guest_thr = Guest(guest)
-                    guest_thr.start()
+                    self.free_table = table
                     print(f'{guest.name} сел(-а) за стол номер {table.number}')
-                    free_table_ = False
-                    self.guests_threads.append(guest_thr)
+                    guest_thread = Guest(guest.name)
+                    guest_thread.start()
+                    self.guests_threads.append(guest_thread)
+                    unfree_table = False
                     break
-            if free_table_:
+            if unfree_table:
                 self.queue.put(guest)
                 print(f'{guest.name} в очереди.')
 
     def discuss_guests(self):
-        for i in self.guests_threads:
-            i.join()
-            print(f'{self.free_table[i].guest} покушал(-а) и ушёл(ушла)')
-            print(f'Стол номер {self.free_table[i].number} свободен')
-            self.free_table[i].guest = None
-            if not self.queue.empty() and not i.is_alive():
+        for guest_thread in self.guests_threads:
+            guest_thread.join()
+            for table in self.tables:
+                if table.guest == guest_thread.name:
+                    print(f'{table.guest} покушал(-а) и ушёл(ушла)')
+                    print(f'Стол номер {table.number} свободен')
+                    table.guest = None
+            if not self.queue.empty():
                 next_guest = self.queue.get()
                 self.guest_arrival(next_guest)
+                sleep(1)
 
 
 # Создание столов
@@ -73,6 +77,5 @@ cafe.guest_arrival(*guests)
 
 # Обслуживание гостей
 cafe.discuss_guests()
-
 
 
