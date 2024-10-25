@@ -3,7 +3,6 @@ import unittest
 import runner_and_tournament as r_a_t
 
 
-
 class TournamentTest(unittest.TestCase):
     is_frozen = True
 
@@ -16,19 +15,16 @@ class TournamentTest(unittest.TestCase):
         self.second = r_a_t.Runner('Андрей', 9)
         self.third = r_a_t.Runner('Ник', 3)
 
-    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_tournament_1(self):
         t = r_a_t.Tournament(90, self.first, self.third)
         TournamentTest.all_results.update({1: t.start()})
         self.assertTrue(TournamentTest.all_results[1][max(TournamentTest.all_results[1])] == 'Ник')
 
-    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_tournament_2(self):
         t = r_a_t.Tournament(90, self.second, self.third)
         TournamentTest.all_results.update({2: t.start()})
         self.assertTrue(TournamentTest.all_results[2][max(TournamentTest.all_results[2])] == 'Ник')
 
-    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_tournament_3(self):
         t = r_a_t.Tournament(90, self.first, self.second, self.third)
         TournamentTest.all_results.update({3: t.start()})
