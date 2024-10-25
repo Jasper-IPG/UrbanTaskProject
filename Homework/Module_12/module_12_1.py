@@ -1,38 +1,29 @@
 # "Проверка на выносливость"
-from unittest import TestCase
+import unittest
+import runner
 
 
-class Runner:
-    def __init__(self, name):
-        self.name = name
-        self.distance = 0
+class RunnerTest(unittest.TestCase):
+    is_frozen = False
 
-    def run(self):
-        self.distance += 10
-
-    def walk(self):
-        self.distance += 5
-
-    def __str__(self):
-        return self.name
-
-
-class RunnerTest(TestCase):
+    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_walk(self):
-        first = Runner('Alex')
+        first = runner.Runner('Alex')
         for _ in range(10):
             first.walk()
         self.assertEqual(first.distance, 50)
 
+    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_run(self):
-        second = Runner('Pavel')
+        second = runner.Runner('Pavel')
         for _ in range(10):
             second.run()
         self.assertEqual(second.distance, 100)
 
+    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_challenge(self):
-        third = Runner('Tim')
-        fourth = Runner('Mark')
+        third = runner.Runner('Tim')
+        fourth = runner.Runner('Mark')
         for _ in range(10):
             third.walk()
             fourth.run()
