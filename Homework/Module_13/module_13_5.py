@@ -16,15 +16,13 @@ class UserState(StatesGroup):
     weight = State()
 
 
-kb = ReplyKeyboardMarkup(resize_keyboard=True)
-button1 = KeyboardButton(text='Рассчитать')
-button2 = KeyboardButton(text='Информация')
-kb.add(button1)
-kb.add(button2)
-
-
 @dp.message_handler(commands=['start'])
 async def start(message):
+    kb = ReplyKeyboardMarkup(resize_keyboard=True)
+    button1 = KeyboardButton(text='Рассчитать')
+    button2 = KeyboardButton(text='Информация')
+    kb.add(button1)
+    kb.add(button2)
     await message.answer('Привет! Я бот помогающий твоему здоровью.', reply_markup=kb)
 
 
