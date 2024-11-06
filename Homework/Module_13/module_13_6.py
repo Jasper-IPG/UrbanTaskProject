@@ -26,14 +26,24 @@ kb_start = ReplyKeyboardMarkup(
     ], resize_keyboard=True
 )
 
-button1 = InlineKeyboardButton(text='Рассчитать норму калорий', callback_data='calories')
-button2 = InlineKeyboardButton(text='Формулы расчёта', callback_data='formulas')
-kb = InlineKeyboardMarkup().add(button1, button2)
+kb = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='Рассчитать норму калорий', callback_data='calories'),
+            InlineKeyboardButton(text='Формулы расчёта', callback_data='formulas')
+        ]
+    ]
+)
 
 
 @dp.message_handler(commands=['start'])
 async def start(message):
     await message.answer('Привет! Я бот помогающий твоему здоровью.', reply_markup=kb_start)
+
+
+@dp.message_handler(text='Информация')
+async def info(message):
+    await message.answer('This BOT made by Jasper.IPG.')
 
 
 @dp.message_handler(text='Рассчитать')
@@ -84,4 +94,3 @@ async def all_massages(message):
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
-
