@@ -2,10 +2,11 @@
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.filters.state import State, StatesGroup
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 import asyncio
 
-api = ''
+api = '7779675789:AAGkUSSUQxNcH_aqYezRUs_9hpAYhUWDEuE'
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
@@ -16,6 +17,15 @@ class UserState(StatesGroup):
     weight = State()
 
 
+kb_start = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text='Рассчитать'),
+            KeyboardButton(text='Информация')
+        ]
+    ], resize_keyboard=True
+)
+
 button1 = InlineKeyboardButton(text='Рассчитать норму калорий', callback_data='calories')
 button2 = InlineKeyboardButton(text='Формулы расчёта', callback_data='formulas')
 kb = InlineKeyboardMarkup().add(button1, button2)
@@ -23,7 +33,7 @@ kb = InlineKeyboardMarkup().add(button1, button2)
 
 @dp.message_handler(commands=['start'])
 async def start(message):
-    await message.answer('Привет! Я бот помогающий твоему здоровью.')
+    await message.answer('Привет! Я бот помогающий твоему здоровью.', reply_markup=kb_start)
 
 
 @dp.message_handler(text='Рассчитать')
