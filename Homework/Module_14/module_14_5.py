@@ -9,7 +9,7 @@ import os
 import asyncio
 
 
-api = '7779675789:AAGkUSSUQxNcH_aqYezRUs_9hpAYhUWDEuE'
+api = ''
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
