@@ -1,6 +1,7 @@
 from Homework.Module_17.app.backend.db import Base
 from sqlalchemy import Column, ForeignKey, Boolean, Float, Integer, String
 from sqlalchemy.orm import relationship
+from Homework.Module_17.app.models import *
 
 
 class User(Base):

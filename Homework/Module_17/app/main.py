@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from Homework.Module_17.app.backend.db import engine, Base
 from Homework.Module_17.app.routers import task, user
 
 
@@ -7,7 +6,7 @@ app = FastAPI(swagger_ui_parameters={'tryItOutEnabled': True}, debug=True)
 
 
 @app.get('/')
-def welcome():
+def welcome() -> dict:
     return {'message': "Welcome to Taskmanager"}
 
 

@@ -1,6 +1,7 @@
 from Homework.Module_17.app.backend.db import Base
 from sqlalchemy import Column, ForeignKey, Boolean, Float, Integer, String
 from sqlalchemy.orm import relationship
+from Homework.Module_17.app.models import *
 
 
 class Task(Base):
@@ -12,4 +13,4 @@ class Task(Base):
     completed = Column(Boolean, default=False)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False, index=True)
     slug = Column(String, unique=True, index=True)
-    user = relationship('User', back_populates='tasks')
+    user = relationship('User', back_populates='task')
